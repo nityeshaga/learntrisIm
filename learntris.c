@@ -3,22 +3,16 @@
 #include<stdio.h>
 
 #include"tetramino.h"
-
-int print_matrix(char matrix[22][10]);
-int set_to_dot(char matrix[22][10]);
-int set_to_given(char matrix[22][10]);
-int check_empty(char matrix[22][10], int row);
-int clear_row(char matrix[22][10], int row);
+#include"matrix.h"
 
 char getnext();
 
-char matrix[22][10];
 int s= 0; /*register to store score*/
 int n= 0; /*register to store no of cleared lines*/
 
 int main(void)
 {
-	if(set_to_dot(matrix)) {
+	if(empty_matrix()) {
 		printf("Error in initializing\n");
 		return 1;
 	}
@@ -56,7 +50,7 @@ int main(void)
 
 			/* p: prints current Matrix state*/
 			case 'p':
-				if(print_matrix(matrix)) {
+				if(print_matrix()) {
 					printf("Error in printing\n");
 					return 1;
 				}
@@ -64,7 +58,7 @@ int main(void)
 
 			/* g: sets Matrix to 'given'*/
 			case 'g':
-				if(set_to_given(matrix)) {
+				if(set_given_matrix()) {
 					printf("Error in setting matrix to given input");
 					return 1;
 				}
@@ -72,7 +66,7 @@ int main(void)
 
 			/* c: clears the Matrix*/
 			case 'c':
-				if(set_to_dot(matrix)) {
+				if(empty_matrix()) {
 					printf("Error setting matrix to dot");
 					return 1;
 				}
@@ -103,8 +97,8 @@ int main(void)
 				{
 					int i;
 					for(i= 0; i< 22; ++i) {
-						if(!check_empty(matrix, i)) {
-							if(clear_row(matrix, i)) {
+						if(!check_empty_row(i)) {
+							if(clear_row_matrix(i)) {
 								printf("Unable to clear\n");
 								return 1;
 							}
@@ -127,70 +121,6 @@ int main(void)
 		}
 	}
 	while(input!='q');
-	return 0;
-}
-
-/*print_matrix(): prints the current state of the matrix*/
-int print_matrix(char matrix[22][10])
-{
-	int i, j;
-	for(i= 0; i< 22; ++i) {
-		for(j= 0; j< 10; ++j)
-			printf("%c ", matrix[i][j]);
-		printf("\n");
-	}
-	return 0;
-}
-
-/*set_to_dot(): assigns '.' to the Matrix elements*/
-int set_to_dot(char matrix[22][10])
-{
-	int i, j;
-	for(i= 0; i< 22; ++i) {
-		for(j= 0; j< 10; ++j)
-			matrix[i][j]= '.';
-	}
-	return 0;
-}
-
-/*set_to_given(): sets the Matrix to 'given'*/
-int set_to_given(char matrix[22][10])
-{
-	int i, j;
-	for(i= 0; i< 22; ++i) {
-		for(j= 0; j< 10; ++j) {
-			char c= getchar();
-			if(c==' ' || c=='\n'){
-				--j;
-				continue;
-			}
-			else
-				matrix[i][j]= c;
-		}
-	}
-	return 0;
-}
-
-/*check_empty(): checks if the specified 'row' is empty; returns 1 if empty and 0 if non-empty*/
-int check_empty(char matrix[22][10], int row)
-{
-	int status= 1;
-	int i;
-	for(i= 0; i< 10; ++i) {
-		if(matrix[row][i]!='.') {
-			status= 0;
-			break;
-		}
-	}
-	return status;
-}
-
-/*clear_row(): clears a specified row*/
-int clear_row(char matrix[22][10], int row)
-{
-	int i;
-	for(i= 0; i< 10; ++i)
-		matrix[row][i]= '.';
 	return 0;
 }
 
