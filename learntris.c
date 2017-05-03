@@ -28,7 +28,33 @@ int main(void)
 		input= getnext();
 		switch(input) {
 
-			/* p: prints Matrix*/
+			/* select the appropriate tetramino*/
+			case 'I':
+			case 'O':
+			case 'Z':
+			case 'S':
+			case 'J':
+			case 'L':
+			case 'T':
+				select_tetramino(input);
+				break;
+
+			/*display the active tetramino*/
+			case 't':
+				display_tetramino();
+				break;
+
+			/*rotate the active tetramino*/
+			case ')':
+				rotate_cw();
+				break;
+
+			/*put a newline on the output*/
+			case ';':
+				putchar('\n');
+				break;
+
+			/* p: prints current Matrix state*/
 			case 'p':
 				if(print_matrix(matrix)) {
 					printf("Error in printing\n");
@@ -92,44 +118,6 @@ int main(void)
 				}
 				break;
 
-			/* select the appropriate tetramino*/
-			case 'I':
-			case 'O':
-			case 'Z':
-			case 'S':
-			case 'J':
-			case 'L':
-			case 'T':
-				select_tetramino(input);
-
-				/*this do-while loop handles the
-				 *operations of the selected tetramino
-				 */
-				do {
-					input= getnext();
-					switch(input) {
-						/*display the active tetramino*/
-						case 't':
-							display_tetramino();
-							break;
-
-						case ')':
-							rotate_cw();
-							break;
-
-						case ';':
-							putchar('\n');
-							break;
-
-						case 'q':
-							break;
-
-						default: 
-							;//printf("NOt enabled\n");
-					}
-				}
-				while(input!= 'q');
-			
 			/* q: quits*/
 			case 'q':
 				break;
