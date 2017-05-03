@@ -55,6 +55,8 @@ int main(void)
 			/* ?: query*/
 			case '?':
 				input= getnext();
+
+				/*note- a different switch case is needed as the symbols of query commands overlap with the regular ones*/
 				switch(input) {
 					/* ?s: query score*/
 					case 's':
@@ -67,6 +69,7 @@ int main(void)
 						break;
 					break;
 				}
+
 				break;
 
 			/* s: one 'step' of the simulation*/
@@ -98,41 +101,41 @@ int main(void)
 			case 'L':
 			case 'T':
 				select_tetramino(input);
-				/*operate on the selected tetramino*/
-				{
-					do {
-						input= getnext();
-						switch(input) {
-							/*display the active tetramino*/
-							case 't':
-								display_tetramino();
-								break;
 
-							case ')':
-								rotate_cw();
-								break;
+				/*this do-while loop handles the
+				 *operations of the selected tetramino
+				 */
+				do {
+					input= getnext();
+					switch(input) {
+						/*display the active tetramino*/
+						case 't':
+							display_tetramino();
+							break;
 
-							case 'q':
-								break;
+						case ')':
+							rotate_cw();
+							break;
 
-							case ';':
-								putchar('\n');
-								break;
+						case ';':
+							putchar('\n');
+							break;
 
-							default: 
-								;//printf("NOt enabled\n");
-						}
+						case 'q':
+							break;
+
+						default: 
+							;//printf("NOt enabled\n");
 					}
-					while(input!= 'q');
 				}
-				break;
+				while(input!= 'q');
 			
 			/* q: quits*/
 			case 'q':
 				break;
 
 			default:
-				;//printf("%c. /*Not implemented*/", input);/*test 2 failed: it takes '.' as a value of input*/
+				;//printf("%c. /*Not implemented*/", input);/*test 2 failed: //it takes '.' as a value of input*/
 		}
 	}
 	while(input!='q');
