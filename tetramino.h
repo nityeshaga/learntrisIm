@@ -6,3 +6,11 @@
 int select_tetramino(char type);
 int display_tetramino(void);
 int rotate_cw(void);
+
+typedef struct tetramino
+{
+	char **array;
+	int dimension;
+} tetramino;
+
+

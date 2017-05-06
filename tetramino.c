@@ -2,12 +2,6 @@
 
 #include"tetramino.h"
 
-typedef struct tetramino
-{
-	char **array;
-	int dimension;
-} tetramino;
-
 //static tetramino_init(tetramino var);
 
 tetramino selected= {NULL, 0};

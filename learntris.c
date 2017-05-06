@@ -6,10 +6,16 @@
 #include"tetramino.h"
 #include"matrix.h"
 
+extern int active_row;
+extern int active_column;
+extern char matrix[22][10];
+extern tetramino selected;
+
 #define FIX 1
 #define NO_FIX 0
 
 char getnext(void);
+int print_matrix(char input);
 void tetramino_on_matrix();
 
 int s= 0; /*register to store score*/
@@ -174,5 +180,38 @@ void tetramino_on_matrix(void)
 			if(i==active_row && j==active_column)
 				matrix[i][j]= selected.array[i-active_row][j-active_column];
 		}
+	}
+}
+
+/*print_matrix(): prints either the current state of the matrix(P) or the past one(p)*/
+int print_matrix(char input)
+{
+	switch(input) {
+	case 'p':
+		{
+			int i, j;
+			for(i= 0; i< 22; ++i) {
+				for(j= 0; j< 10; ++j)
+					printf("%c ", matrix[i][j]);
+				printf("\n");
+			}
+			return 0;
+		}
+		break;
+	case 'P':
+		{
+			int i, j;
+			for(i= 0; i<22; ++i) {
+				for(j= 0; j<10; ++j) {
+					if(i>=active_row && j>=active_column && i<active_row+selected.dimension && j<active_column+selected.dimension)
+						printf("%c ", toupper(selected.array[i-active_row][j-active_column]));
+					else
+						printf("%c ", matrix[i][j]);
+				}
+				printf("\n");
+			}
+			return 0;
+		}
+		break;
 	}
 }
