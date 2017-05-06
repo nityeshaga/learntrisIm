@@ -10,7 +10,7 @@ typedef struct tetramino
 
 //static tetramino_init(tetramino var);
 
-static tetramino selected= {NULL, 0};
+tetramino selected= {NULL, 0};
 
 /*select_tetramino(): assigns the appropriate properties of 'type' tetramino to the 'selected' tetramino variable*/
 int select_tetramino(char type)
@@ -25,35 +25,39 @@ int select_tetramino(char type)
 	switch(type) {
 		case 'I':
 			{
+				selected.dimension= 4;
 				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
 						if(i==1) {
 							selected.array[i][j]= 'c';
 							continue;
 						}
 							selected.array[i][j]= '.';
 					}
-				selected.dimension= 4;
 			}
 			break;
 
 		case 'O':
 			{
-				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
-						selected.array[i][j]= 'y';
-					}
 				selected.dimension= 2;
+				int i, j;
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
+						if(i<2 && j<2)
+							selected.array[i][j]= 'y';
+						else
+							selected.array[i][j]= '.';
+					}
 			}
 			break;
 
 		case 'Z':
 			{
+				selected.dimension= 3;
 				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
 						if(i==0) {
 							if(j==0 || j==1) {
 								selected.array[i][j]= 'r';
@@ -67,15 +71,15 @@ int select_tetramino(char type)
 							}
 						selected.array[i][j]= '.';
 					}
-				selected.dimension= 3;
 			}
 			break;
 
 		case 'S':
 			{
+				selected.dimension= 3;
 				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
 						if(i==0) {
 							if(j==1 || j==2) {
 								selected.array[i][j]= 'g';
@@ -89,70 +93,69 @@ int select_tetramino(char type)
 							}
 						selected.array[i][j]= '.';
 					}
-				selected.dimension= 3;
 			}
 			break;
 			
 		case 'J':
 			{
+				selected.dimension= 3;
 				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
 						if(i==0) {
 							if(j==0) {
 								selected.array[i][j]= 'b';
 								continue;
 							}
 						}
-						else if(i==1) {
+						else if(i==1 && j<3) {
 							selected.array[i][j]= 'b';
 							continue;
 						}
 						selected.array[i][j]= '.';
 					}
-				selected.dimension= 3;
 			}
 			break;
 
 		case 'L':
 			{
+				selected.dimension= 3;
 				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
 						if(i==0) {
 							if(j==2) {
 								selected.array[i][j]= 'o';
 								continue;
 							}
 						}
-						else if(i==1) {
+						else if(i==1 && j<3) {
 							selected.array[i][j]= 'o';
 							continue;
 						}
 						selected.array[i][j]= '.';
 					}
-				selected.dimension= 3;
 			}
 			break;
 
 		case 'T':
 			{
+				selected.dimension= 3;
 				int i, j;
-				for(i= 0; i< 4; ++i)
-					for(j= 0; j< 4; ++j) {
+				for(i= 0; i< selected.dimension; ++i)
+					for(j= 0; j< selected.dimension; ++j) {
 						if(i==0) {
 							if(j==1) {
 								selected.array[i][j]= 'm';
 								continue;
 							}
 						}
-						else if(i==1) {
+						else if(i==1 && j<3) {
 							selected.array[i][j]= 'm';
 							continue;
 						}
 						selected.array[i][j]= '.';
 					}
-				selected.dimension= 3;
 			}
 			break;
 
@@ -186,7 +189,7 @@ int rotate_cw(void)
 
 	/*create a tetramino variable-temp*/
 	tetramino temp= {NULL, 0};
-	temp.dimension= 4;
+	temp.dimension= selected.dimension;
 	temp.array= (char **)malloc(sizeof(char *) * temp.dimension);
 	temp.array[0]= (char *)malloc(sizeof(char) * temp.dimension * temp.dimension);
 	int i, j, k; 
@@ -194,12 +197,11 @@ int rotate_cw(void)
 		temp.array[i]= (temp.array[0] + temp.dimension * i);
 
 	/*initialize temp.array to store '.'*/
-	for(i= 0; i< 4; ++i)
-		for(j= 0; j< 4; ++j)
+	for(i= 0; i< selected.dimension; ++i)
+		for(j= 0; j< selected.dimension; ++j)
 			temp.array[i][j]= '.';
 
 	/*store the rotated version on temp variable*/
-	temp.dimension= selected.dimension;
 	for(i= temp.dimension-1, k= 0; i>= 0; --i, ++k)
 		for(j= 0; j<temp.dimension; ++j)
 			temp.array[j][i]= selected.array[k][j];

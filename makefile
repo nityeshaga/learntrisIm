@@ -4,7 +4,7 @@ tetramino.o: tetramino.c tetramino.h
 matrix.o: matrix.c matrix.h
 	gcc -c matrix.c
 
-learntris.o: learntris.c tetramino.h
+learntris.o: learntris.c tetramino.h matrix.h
 	gcc -c learntris.c
 
 learntris: learntris.o tetramino.o matrix.o

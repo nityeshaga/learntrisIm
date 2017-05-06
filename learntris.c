@@ -1,11 +1,16 @@
 /*THIS FILE CONTAINS THE main() FUNCTION WHICH MAKES ALL THE NECESSARY ABSTRACT FUNCTION CALLS*/
 
 #include<stdio.h>
+#include<ctype.h>
 
 #include"tetramino.h"
 #include"matrix.h"
 
-char getnext();
+#define FIX 1
+#define NO_FIX 0
+
+char getnext(void);
+void tetramino_on_matrix();
 
 int s= 0; /*register to store score*/
 int n= 0; /*register to store no of cleared lines*/
@@ -31,6 +36,8 @@ int main(void)
 			case 'L':
 			case 'T':
 				select_tetramino(input);
+				active_row= 0;
+				active_column= selected.dimension==2? 4: 3; 
 				break;
 
 			/*display the active tetramino*/
@@ -50,7 +57,7 @@ int main(void)
 
 			/* p: prints current Matrix state*/
 			case 'p':
-				if(print_matrix()) {
+				if(print_matrix(input)) {
 					printf("Error in printing\n");
 					return 1;
 				}
@@ -112,6 +119,31 @@ int main(void)
 				}
 				break;
 
+			/* P: prints the matrix along with the active tetramino*/
+			case 'P':
+				print_matrix(input);
+				break;
+
+			/* >: nudges the active tetramino one cell to the right*/
+		/*	case '>':
+				nudge_right(); //don't work on the matrix to do this coz the tetramino has not been mapped yet
+								//work with active_row and active_column variables
+				break;
+				*/
+
+			/* <: nudges the active tetramino one cell to the left*/
+		/*	case '<':
+				nudge_left();
+				break;
+				*/
+
+			/* v: moves the active tetramino on cell downward*/
+		/*	case 'v':
+				move_down();
+				break;
+				*/
+		
+
 			/* q: quits*/
 			case 'q':
 				break;
@@ -131,4 +163,16 @@ char getnext()
 	while(c==' ' || c=='\n' || c=='\t')
 		c= getchar();
 	return c;
+}
+
+/*tetramino_on_matrix(): fixes the tetramino permanently the on the matrix*/
+void tetramino_on_matrix(void)
+{
+	int i, j;
+	for(i= 0; i<22; ++i) {
+		for(j= 0; j<10; ++j) {
+			if(i==active_row && j==active_column)
+				matrix[i][j]= selected.array[i-active_row][j-active_column];
+		}
+	}
 }

@@ -1,8 +1,9 @@
 /*matrix.h HEADER FILE CONTAINS THE FUNCTION DECLARATIONS FOR matrix.c*/
 
 #include<stdio.h>
+#include<ctype.h>
 
-int print_matrix(void);
+int print_matrix(char);
 int empty_matrix(void);
 int set_given_matrix(void);
 int check_empty_row(int);
