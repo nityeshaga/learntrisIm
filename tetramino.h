@@ -5,7 +5,9 @@
 
 int select_tetramino(char type);
 int display_tetramino(void);
-int rotate_cw(void);
+int rotate(char);
+int nempty_rows(int);
+int nempty_columns(int);
 
 typedef struct tetramino
 {
@@ -13,4 +15,9 @@ typedef struct tetramino
 	int dimension;
 } tetramino;
 
+#define TOP 1
+#define BOTTOM -1
+#define RIGHT 2
+#define LEFT -2
+#define ALL 0
 

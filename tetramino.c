@@ -2,6 +2,12 @@
 
 #include"tetramino.h"
 
+#define TOP 1
+#define BOTTOM -1
+#define RIGHT 2
+#define LEFT -2
+#define ALL 0
+
 //static tetramino_init(tetramino var);
 
 tetramino selected= {NULL, 0};
@@ -175,8 +181,8 @@ int display_tetramino(void)
 	return 0;
 }
 
-/*rotate_cw(): rotates the tetramino clockwise by 90 degrees*/
-int rotate_cw(void)
+/*rotate(): rotates the tetramino clockwise or anticlockwise as directed by 'type' by 90 degrees*/
+int rotate(char type)
 {
 	if(selected.dimension==0)
 		return 1;
@@ -196,11 +202,87 @@ int rotate_cw(void)
 			temp.array[i][j]= '.';
 
 	/*store the rotated version on temp variable*/
-	for(i= temp.dimension-1, k= 0; i>= 0; --i, ++k)
-		for(j= 0; j<temp.dimension; ++j)
-			temp.array[j][i]= selected.array[k][j];
+	/*clockwise rotation*/
+	if(type==')') {
+		for(i= temp.dimension-1, k= 0; i>= 0; --i, ++k)
+			for(j= 0; j<temp.dimension; ++j)
+				temp.array[j][i]= selected.array[k][j];
+	}
+	/*anti-clockwise rotation*/
+	else if(type=='(') {
+		for(i= 0; i< temp.dimension; ++i)
+			for(j= temp.dimension-1, k= 0; j>=0; --j, ++k)
+				temp.array[j][i]= selected.array[i][k];
+	}
 
 	/*change the address stored on selected.array*/
 	selected.array= temp.array;
 	return 0;
 }
+
+/*nempty_rows(): returns the no of non-empty rows in the 'selected' tetramino array*/
+int nempty_rows(int pos)
+{
+	int nn= 0, nt= 0, nb= 0; /*store various no.s of empty row*/
+	int flag= 0; /*flags if we have passed a non-empty row*/
+	int i, j;
+	for(i= 0; i< selected.dimension; ++i) {
+		for(j= 0; j< selected.dimension; ++j) {
+			if(selected.array[i][j]!= '.') {
+				flag= 1;
+				break;
+			}
+		}
+		if(j==selected.dimension) { /*implying that break did not cause the exit of the nested for*/
+			++nn;
+			if(flag==1)
+				++nb;
+			else
+				++nt;
+		}
+	}
+	switch(pos) {
+		case BOTTOM:
+			return nb;
+			break;
+		case TOP:
+			return nt;
+			break;
+		default:
+			return nn;
+	}
+}
+
+/*nempty_columns(): returns the no of columns in the 'selected' tetramino array that are non-empty*/
+int nempty_columns(int pos)
+{
+	int nn= 0, nl= 0, nr= 0; /*store various no.s of empty columns*/
+	int flag= 0; /*flags if we have passed a non-empty column*/
+	int i, j;
+	for(i= 0; i< selected.dimension; ++i) {
+		for(j= 0; j< selected.dimension; ++j) {
+			if(selected.array[j][i]!= '.') {
+				flag= 1;
+				break;
+			}
+		}
+		if(j==selected.dimension) { /*implying that break did not cause the exit of the nested for*/
+			++nn;
+			if(flag==1)
+				++nr;
+			else
+				++nl;
+		}
+	}
+	switch(pos) {
+		case RIGHT:
+			return nr;
+			break;
+		case LEFT:
+			return nl;
+			break;
+		default:
+			return nn;
+	}
+}
+
