@@ -1,26 +1,21 @@
 /*tetramino.c FILE CONTAINS ALL THE VARIABLES AND FUNCTION DEFINITIONS REQUIRED FOR IMPLEMENTING AND OPERATING ON THE TETRAMINOS*/
 
 #include"tetramino.h"
+#include"generic.h"
 
-#define TOP 1
-#define BOTTOM -1
-#define RIGHT 2
-#define LEFT -2
-#define ALL 0
-
-//static tetramino_init(tetramino var);
-
-tetramino selected= {NULL, 0};
+tetramino selected= {NULL, 0, NULL};
 
 /*select_tetramino(): assigns the appropriate properties of 'type' tetramino to the 'selected' tetramino variable*/
 int select_tetramino(char type)
 {
+	if(selected.array!=NULL) {
+		free(selected.array[0]);
+		free(selected.array);
+	}
+
 	selected.dimension= 4;
-	selected.array= (char **)malloc(sizeof(char *) * selected.dimension);
-	selected.array[0]= (char *)malloc(sizeof(char) * selected.dimension * selected.dimension);
-	int i; 
-	for(i= 0; i< selected.dimension; i++)
-		selected.array[i]= (*selected.array + selected.dimension * i);
+	selected.n_empty= (char *)malloc(sizeof(char) * 4);
+	array_init(&selected.array, selected.dimension, selected.dimension);
 
 	switch(type) {
 		case 'I':
@@ -162,6 +157,7 @@ int select_tetramino(char type)
 		default:
 			return 1;
 	}
+	calc_emptiness();
 	return 0;
 }
 
@@ -217,72 +213,47 @@ int rotate(char type)
 
 	/*change the address stored on selected.array*/
 	selected.array= temp.array;
+
+	calc_emptiness();
 	return 0;
 }
 
-/*nempty_rows(): returns the no of non-empty rows in the 'selected' tetramino array*/
-int nempty_rows(int pos)
+/*calc_emptiness(): evaluates the no. of empty rows and columns in the tetramino's 2D array and changes the 'selected' variable appropriately*/
+void calc_emptiness(void)
 {
-	int nn= 0, nt= 0, nb= 0; /*store various no.s of empty row*/
-	int flag= 0; /*flags if we have passed a non-empty row*/
-	int i, j;
-	for(i= 0; i< selected.dimension; ++i) {
-		for(j= 0; j< selected.dimension; ++j) {
-			if(selected.array[i][j]!= '.') {
-				flag= 1;
-				break;
-			}
-		}
-		if(j==selected.dimension) { /*implying that break did not cause the exit of the nested for*/
-			++nn;
-			if(flag==1)
-				++nb;
-			else
-				++nt;
-		}
+	int i;
+	/*for(i= 0; i< 4; ++i)
+		selected.n_empty[i]= 0;*/
+	selected.n_empty[0]= 0;
+	selected.n_empty[1]= 0;
+	selected.n_empty[2]= 0;
+	selected.n_empty[3]= 0;
+
+	/*from the LEFT*/
+	i= 0;
+	while(i< selected.dimension && check_empty_column(i, selected.array, 0, selected.dimension)) {
+		++i;
+		++selected.n_empty[LEFT];
 	}
-	switch(pos) {
-		case BOTTOM:
-			return nb;
-			break;
-		case TOP:
-			return nt;
-			break;
-		default:
-			return nn;
+
+	/*from the RIGHT*/
+	i= selected.dimension-1;
+	while(i>=0 && check_empty_column(i, selected.array, 0, selected.dimension)) {
+		--i;
+		++selected.n_empty[RIGHT];
+	}
+
+	/*from the TOP*/
+	i= 0;
+	while(i< selected.dimension && check_empty(ROW, &selected.array[i][0], selected.dimension)) {
+		++i;
+		++selected.n_empty[TOP];
+	}
+	
+	/*from the BOTTOM*/
+	i= selected.dimension-1;
+	while(i>=0 && check_empty(ROW, &selected.array[i][0], selected.dimension)) {
+		--i;
+		++selected.n_empty[BOTTOM];
 	}
 }
-
-/*nempty_columns(): returns the no of columns in the 'selected' tetramino array that are non-empty*/
-int nempty_columns(int pos)
-{
-	int nn= 0, nl= 0, nr= 0; /*store various no.s of empty columns*/
-	int flag= 0; /*flags if we have passed a non-empty column*/
-	int i, j;
-	for(i= 0; i< selected.dimension; ++i) {
-		for(j= 0; j< selected.dimension; ++j) {
-			if(selected.array[j][i]!= '.') {
-				flag= 1;
-				break;
-			}
-		}
-		if(j==selected.dimension) { /*implying that break did not cause the exit of the nested for*/
-			++nn;
-			if(flag==1)
-				++nr;
-			else
-				++nl;
-		}
-	}
-	switch(pos) {
-		case RIGHT:
-			return nr;
-			break;
-		case LEFT:
-			return nl;
-			break;
-		default:
-			return nn;
-	}
-}
-

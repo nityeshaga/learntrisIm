@@ -1,14 +1,15 @@
+
 generic.o: generic.c generic.h
-	gcc -c generic.c
+	gcc -c generic.c -g -O0
 
 tetramino.o: tetramino.c tetramino.h generic.h
-	gcc -c tetramino.c
+	gcc -c tetramino.c -g -O0
 
 matrix.o: matrix.c matrix.h generic.h
-	gcc -c matrix.c
+	gcc -c matrix.c -g -O0
 
 learntris.o: learntris.c tetramino.h matrix.h generic.h
-	gcc -c learntris.c
+	gcc -c learntris.c -g -O0
 
 learntris: learntris.o tetramino.o matrix.o generic.o
-	gcc learntris.o tetramino.o matrix.o generic.o -o learntris
+	gcc learntris.o tetramino.o matrix.o generic.o -o learntris -g -O0

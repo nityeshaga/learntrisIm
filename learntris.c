@@ -1,7 +1,10 @@
 #include<stdio.h>
 
+#include"generic.h"
 #include"matrix.h"
 #include"tetramino.h"
+
+#define MAXREAD 100
 
 extern int active_row;
 extern int active_column;
@@ -11,15 +14,18 @@ extern char matrix[22][10];
 void tetramino_on_matrix(void);
 char getnext(void);
 int print_matrix(char input);
-int collide(void);
 void calliberate(void);
+int collide(void);
 
+char instring[MAXREAD]= {'\n'};
+int cur_index= 0;
 
 int s= 0; /*register to store score*/
 int n= 0; /*register to store no of cleared lines*/
 
 int main(void)
 {
+
 	if(empty_matrix()) {
 		printf("Error in initializing\n");
 		return 1;
@@ -38,11 +44,20 @@ int main(void)
 			case 'J':
 			case 'L':
 			case 'T':
-				tetramino_on_matrix();
+
+				/*fix the existing tetramino to the matrix*/
+				if(selected.dimension!=0) {
+					if(active_row==22- (selected.dimension- selected.n_empty[BOTTOM]))
+						tetramino_on_matrix();
+					else {
+						active_row= collide();
+						tetramino_on_matrix();
+					}
+				}
+
 				select_tetramino(input);
 				active_row= 0;
 				active_column= selected.dimension==2? 4: 3; 
-				//calliberate();
 				break;
 
 			/*display the active tetramino*/
@@ -53,13 +68,11 @@ int main(void)
 			/*rotate the active tetramino clockwise*/
 			case ')':
 				rotate(input);
-				//calliberate();
 				break;
 
 			/*rotate the active tetramino anti-clockwise*/
 			case '(':
 				rotate(input);
-				//calliberate();
 				break;
 			/*put a newline on the output*/
 			case ';':
@@ -74,7 +87,7 @@ int main(void)
 				}
 				break;
 
-			/* g: sets Matrix to 'given'*/
+			/* g: sets matrix to 'given'*/
 			case 'g':
 				if(set_given_matrix()) {
 					printf("Error in setting matrix to given input");
@@ -82,7 +95,7 @@ int main(void)
 				}
 				break;
 
-			/* c: clears the Matrix*/
+			/* c: clears the matrix*/
 			case 'c':
 				if(empty_matrix()) {
 					printf("Error setting matrix to dot");
@@ -113,19 +126,29 @@ int main(void)
 			/* s: one 'step' of the simulation*/
 			case 's': 
 				{
-					int i;
+					int flag;	/*flags if a full row is found*/
+					int i, j;
 					for(i= 0; i< 22; ++i) {
-						if(!check_empty_row(i)) {
-							if(clear_row_matrix(i)) {
-								printf("Unable to clear\n");
-								return 1;
+						flag= 1;
+						for(j= 0; j< 10; ++j) {
+							if(matrix[i][j]=='.') {
+								flag= 0;
+								break;
 							}
-							else {
-								s+=100;
-								n+=1;
-							}
-							break;
 						}
+						if(flag)
+							break;
+					}
+					if(flag) {
+						if(clear_row_matrix(i)) {
+							printf("Unable to clear\n");
+							return 1;
+						}
+						else {
+							s+=100;
+							n+=1;
+						}
+						break;
 					}
 				}
 				break;
@@ -137,17 +160,17 @@ int main(void)
 
 			/* >: nudges the active tetramino one cell to the right*/
 			case '>':
-				nudge_right(nempty_columns(RIGHT), selected.dimension); 
+				nudge_right(selected);
 				break;
 
 			/* <: nudges the active tetramino one cell to the left*/
 			case '<':
-				nudge_left(nempty_columns(LEFT), selected.dimension);
+				nudge_left(selected);
 				break;
 
 			/* v: moves the active tetramino on cell downward*/
 			case 'v':
-				move_down(nempty_rows(BOTTOM), selected.dimension);
+				move_down(selected);
 				break;
 		
 			/* V: hard drop*/
@@ -169,10 +192,16 @@ int main(void)
 }
 
 /*getnext(): returns the next non-space character in the buffer*/
-char getnext()
+char getnext(void)
 {
+	/*if(instring[cur_index]=='\n') {
+		fgets(instring, MAXREAD, stdin);
+		cur_index= 0;
+	}
+	return instring[cur_index++];*/
+
 	char c= ' ';
-	while(c==' ' || c=='\n' || c=='\t')
+	while(c==' ' || c=='\n')
 		c= getchar();
 	return c;
 }
@@ -235,66 +264,40 @@ int collide(void)
 
 	/*find the last row in matrix that has empty space for the tetramino*/
 	int last_e_row= -1;
+	int flag= 0;	/*flags if non-empty row is found*/
 	int i, j;
-	int flag= 0;	/*flags if non-'.' character is found*/
 	for(i= ar+1; i< 22; ++i) {
-		if(!check_empty(i, BOTTOM, selected.dimension, 0))
+		for(j= ac+selected.n_empty[LEFT]; j< ac+ selected.dimension- selected.n_empty[RIGHT]; ++j) {
+			if(matrix[i][j]!='.') {
+				flag= 1;
+				break;
+			}
+		}
+		if(flag)
 			break;
 	}
 	last_e_row= i-1;
-	last_e_row-= (selected.dimension-1);
 	ar= last_e_row;
 
-	/*fix according to empty rows in the tetramino*/
-	int ne_row_tetramino= nempty_rows(BOTTOM);
-	ar+= ne_row_tetramino;
+	/*fix according to the rows in the tetramino*/
+	ar-= (selected.dimension-1);
+	ar+= selected.n_empty[BOTTOM];
 
-	/*check if the end of selected tetramino fits in the row after the last one*/
+	/*check if the end of selected tetramino fits in the next possible row (which is obviously non-empty)*/
 	int fix= 1;
-	for(i= 0; i< selected.dimension; ++i) {
-		if(selected.array [(selected.dimension-1)- ne_row_tetramino][i]!='.') {
-			if(matrix [ar+ selected.dimension][ac+ i]!='.') {
-				fix= 0;
-				break;
-			}
+	for(i= selected.n_empty[LEFT]; i< selected.dimension- selected.n_empty[RIGHT]; ++i) {
+		if((ar+ selected.dimension- selected.n_empty[BOTTOM])>21) {	/*if 'ar' is the last possible row in the matrix*/
+			fix= 0;
+			break;
+		}
+		else if(matrix [ar+ selected.dimension- selected.n_empty[BOTTOM]][ac+ i]!='.' && selected.array[selected.dimension-selected.n_empty[BOTTOM]-1][i]!='.') {
+			fix= 0;
+			break;
 		}
 	}
 	ar+=fix;
 	return ar;
 }
 
-/*calliberate(): calliberates the active row and column to correct position according to the orientation of tetramino*/
-/*
-void calliberate(void)
-{
-	int flag= 0;*/	/*flags if the row/column is non-empty*/
-	/*
-	int i;
-	int add_r= 0, add_c= 0;
-*/
 
-	/*calliberate active row*/
-	/*for(i= 0; i<=selected.dimension; ++i) {
-		if(i==selected.dimension && flag==0) {
-			++add_r;
-			i= -1;
-		}
-		else if(i<selected.dimension && selected.array[add_r][i]!='.')
-			flag= 1;
-	}
-	active_row+=add_r;
-*/
-
-	/*calliberate active column*/
-	/*
-	for(i= 0; i<=selected.dimension; ++i) {
-		if(i==selected.dimension && flag==0) {
-			++add_c;
-			i= 0;
-		}
-		else if(i<selected.dimension && selected.array[i][add_c]!='.')
-			flag= 1;
-	}
-	active_column+=add_c;
-}
-*/
+//if(!check_empty(ROW, &matrix[i][ac+selected.n_empty[LEFT]], selected.dimension-(selected.n_empty[LEFT]+selected.n_empty[RIGHT])))
