@@ -33,150 +33,150 @@ All the other files provide a set of automated tests that will guide you through
 
 *__NOTE__: All the commands implemented right now* (date- 21.05.17) *were created to pass the tests mentioned in [testplan.org](https://github.com/LearnProgramming/learntris/blob/master/testplan.org) in (https://github.com/LearnProgramming/learntris).*
 
-*__NOTE__: This is a Work In Progress. So these instructions must be looked at as the features that have been currently implemented, in their most basic form, not instructions at playing a full fledged game. There are many bugs in the code, so many that almost every command can be broken using some set of input. Which means that you __will__ encounter some when you the code. So, if you do decide to run the code, please consider [contributing] to its development*
+*__NOTE__: This is a Work In Progress. So these instructions must be looked at, as mere features that have been currently implemented in their most basic form and not as instructions at playing a fully developed game. There are many bugs in the code, so many that almost every command can be broken using some set of input. Which means that you __will__ encounter some when you run the code. So, if you do decide to run the code, please consider [contributing] to its development*
 
-*__NOTE__: As this is a command line game, all commands mentioned here must be proceeded with a newline (implying that you need to press enter after each command) to execute them. You are allowed to enter multiple commands in one line but none of them will execute until you press enter.*
+*__NOTE__: As this is a command line game, all commands mentioned here must be proceeded with a newline (implying that you need to press enter after each command) to execute them. You are allowed to enter multiple commands in one line, with or without spaces but none of them will execute until you press enter.*
 
 **COMMAND- 'q': quits the game instantly**  
 
-As mentioned before, the playing field consists of 22 X 10 matrix like this:
-. . . . . . . . . . #  0  
-. . . . . . . . . . #  1  
-. . . . . . . . . . #  2  
-. . . . . . . . . . #  3  
-. . . . . . . . . . #  4  
-. . . . . . . . . . #  5  
-. . . . . . . . . . #  6  
-. . . . . . . . . . #  7  
-. . . . . . . . . . #  8  
-. . . . . . . . . . #  9  
-. . . . . . . . . . # 10  
-. . . . . . . . . . # 11  
-. . . . . . . . . . # 12  
-. . . . . . . . . . # 13  
-. . . . . . . . . . # 14  
-. . . . . . . . . . # 15  
-. . . . . . . . . . # 16  
-. . . . . . . . . . # 17  
-. . . . . . . . . . # 18  
-. . . . . . . . . . # 19  
-. . . . . . . . . . # 20  
-. . . . . . . . . . # 21  
+As mentioned before, the playing field consists of 22 X 10 matrix like this:  
+`. . . . . . . . . .` #  0  
+`. . . . . . . . . .` #  1  
+`. . . . . . . . . .` #  2  
+`. . . . . . . . . .` #  3  
+`. . . . . . . . . .` #  4  
+`. . . . . . . . . .` #  5  
+`. . . . . . . . . .` #  6  
+`. . . . . . . . . .` #  7  
+`. . . . . . . . . .` #  8  
+`. . . . . . . . . .` #  9  
+`. . . . . . . . . .` # 10  
+`. . . . . . . . . .` # 11  
+`. . . . . . . . . .` # 12  
+`. . . . . . . . . .` # 13  
+`. . . . . . . . . .` # 14  
+`. . . . . . . . . .` # 15  
+`. . . . . . . . . .` # 16  
+`. . . . . . . . . .` # 17  
+`. . . . . . . . . .` # 18  
+`. . . . . . . . . .` # 19  
+`. . . . . . . . . .` # 20  
+`. . . . . . . . . . # 21`  
 
 The dots imply empty indices.  
-**COMMAND- 'p': To view the current state of the matrix, press 'p'** (you won't be shown the number for each line as shown above).
+**COMMAND- 'p': To view the current state of the matrix, press 'p'** (you won't be shown the number for each line as shown above and in the examples below).
 
 Tetraminos are the basic building blocks of the game. In Learntris, they are implemented using letters of the English alphabet, where the alphabet corresponds to the colour of the respective tetramino.
 
 There are 7 types of tetraminos-
 
 * The I tetramino, colour- cyan:  
-. . . .  
-c c c c  
-. . . .  
-. . . .  
+`. . . .`  
+`c c c c`  
+`. . . .`  
+`. . . .`  
 
-* The O tetramino, colour- yellow:
-y y  
-y y  
+* The O tetramino, colour- yellow:  
+`y y`  
+`y y`  
 
-* The Z tetramino, colour- red:
-r r .
-. r r
-. . .
+* The Z tetramino, colour- red:  
+`r r .`  
+`. r r`  
+`. . .`  
 
-* The S tetramino, colour- green:
-. g g
-g g .
-. . .
+* The S tetramino, colour- green:  
+`. g g`  
+`g g .`  
+`. . .`  
 
-* The J tetramino, colour- blue:
-b . .
-b b b
-. . .
+* The J tetramino, colour- blue:  
+`b . .`  
+`b b b`  
+`. . .`  
 
-* The L tetramino, colour- orange:
-. . o
-o o o
-. . .
+* The L tetramino, colour- orange:  
+`. . o`  
+`o o o`  
+`. . .`  
 
-* The T tetramino, colour- magneta:
-. m .
-m m m
-. . .
+* The T tetramino, colour- magneta:  
+`. m .`  
+`m m m`  
+`. . .`  
 
 **COMMAND- 'I', 'O', 'Z', 'S', 'J', 'L', 'T': pressing any of these selects the corresponding tetramino, places it on the matrix and makes it active**  
 **COMMAND- 'P': prints the matrix along with the active tetramino**  
-*__NOTE__: selecting a tetramino does not fix it to the matrix, therefore, it does not define it current state, which means that the command- 'p' will not show it on the matrix*
+*__NOTE__: selecting a tetramino does not fix it to the matrix, therefore, it does not define its current state, which means that the command- 'p' will not show it on the matrix*
 
 Now, that the tetramino is active, you can move it around in the matrix.  
 **COMMAND- '>': moves the active tetramino one cell to the right, press '>'**  
 **COMMAND- '<': moves the active tetarmino one cell to the left, press '<'**  
 **COMMAND- 'v': moves the active tetramino one cell down, press 'v'**  
-*__NOTE__: The tetramino is active after any of these movement commands, meaning that it is not fixed to the matrix*  
+*__NOTE__: The tetramino is active after any of these movement commands, which implies that it is not fixed to the matrix*  
 
-**COMMAND- 'V': hard drops the active tetramino** (moves it down in the current column as much as possible) **and fixes it at the position**  
-After this command, the tetramino gets fixed to the matrix and goes in a permanent state of inactivity.  
+**COMMAND- 'V': hard drops the active tetramino (moves it down in the current column as much as possible) and fixes it at the position**  
+After this command, the tetramino gets fixed to the matrix and goes in a state of permanent inactivity.  
 
-The tetraminos can be rotated, any number of times, both clockwise and anti-clockwise.
+The tetraminos can be rotated, any number of times, both clockwise and anti-clockwise.  
 **COMMAND- ')': rotates the active tetramino clockwise by 90 degrees**  
 **COMMAND- '(': rotates the active tetramino anti-clockwise by 90 degrees**  
 
 Here's an example illustrating the above commands:  
 
 > T ( >>>> > Pq  
-. . . . . . . . . M #  0  
-. . . . . . . . M M #  1  
-. . . . . . . . . M #  2  
-. . . . . . . . . . #  3  
-. . . . . . . . . . #  4  
-. . . . . . . . . . #  5  
-. . . . . . . . . . #  6  
-. . . . . . . . . . #  7  
-. . . . . . . . . . #  8  
-. . . . . . . . . . #  9  
-. . . . . . . . . . # 10  
-. . . . . . . . . . # 11  
-. . . . . . . . . . # 12  
-. . . . . . . . . . # 13  
-. . . . . . . . . . # 14  
-. . . . . . . . . . # 15  
-. . . . . . . . . . # 16  
-. . . . . . . . . . # 17  
-. . . . . . . . . . # 18  
-. . . . . . . . . . # 19  
-. . . . . . . . . . # 20  
-. . . . . . . . . . # 21  
+`. . . . . . . . . M` #  0  
+`. . . . . . . . M M` #  1  
+`. . . . . . . . . M` #  2  
+`. . . . . . . . . .` #  3  
+`. . . . . . . . . .` #  4  
+`. . . . . . . . . .` #  5  
+`. . . . . . . . . .` #  6  
+`. . . . . . . . . .` #  7  
+`. . . . . . . . . .` #  8  
+`. . . . . . . . . .` #  9  
+`. . . . . . . . . .` # 10  
+`. . . . . . . . . .` # 11  
+`. . . . . . . . . .` # 12  
+`. . . . . . . . . .` # 13  
+`. . . . . . . . . .` # 14  
+`. . . . . . . . . .` # 15  
+`. . . . . . . . . .` # 16  
+`. . . . . . . . . .` # 17  
+`. . . . . . . . . .` # 18  
+`. . . . . . . . . .` # 19  
+`. . . . . . . . . .` # 20  
+`. . . . . . . . . . # 21`  
 
 Here's another example:  
 
 > TV ZV pq
-. . . . . . . . . . #  0  
-. . . . . . . . . . #  1  
-. . . . . . . . . . #  2  
-. . . . . . . . . . #  3  
-. . . . . . . . . . #  4  
-. . . . . . . . . . #  5  
-. . . . . . . . . . #  6  
-. . . . . . . . . . #  7  
-. . . . . . . . . . #  8  
-. . . . . . . . . . #  9  
-. . . . . . . . . . # 10  
-. . . . . . . . . . # 11  
-. . . . . . . . . . # 12  
-. . . . . . . . . . # 13  
-. . . . . . . . . . # 14  
-. . . . . . . . . . # 15  
-. . . . . . . . . . # 16  
-. . . . . . . . . . # 17   
-. . . r r . . . . . # 18  
-. . . . r r . . . . # 19  
-. . . . m . . . . . # 20  
-. . . m m m . . . . # 21  
+`. . . . . . . . . .` #  0  
+`. . . . . . . . . .` #  1  
+`. . . . . . . . . .` #  2  
+`. . . . . . . . . .` #  3  
+`. . . . . . . . . .` #  4  
+`. . . . . . . . . .` #  5  
+`. . . . . . . . . .` #  6  
+`. . . . . . . . . .` #  7  
+`. . . . . . . . . .` #  8  
+`. . . . . . . . . .` #  9  
+`. . . . . . . . . .` # 10  
+`. . . . . . . . . .` # 11  
+`. . . . . . . . . .` # 12  
+`. . . . . . . . . .` # 13  
+`. . . . . . . . . .` # 14  
+`. . . . . . . . . .` # 15  
+`. . . . . . . . . .` # 16  
+`. . . . . . . . . .` # 17  
+`. . . r r . . . . .` # 18  
+`. . . . r r . . . .` # 19  
+`. . . . m . . . . .` # 20  
+`. . . m m m . . . .` # 21  
 
 Scoring:  
 Whenever you are able to completely fill a row, you are eligible to add 100 points to your existing score.  
-**COMMAND- 's': checks if a completely filled row is present in the matrix. If yes, then deletes the first appearance of such a row, shifts all rows above it one cell down and increases the score by 100 points**  
+**COMMAND- 's': checks if a completely filled row is present in the matrix. If yes, then it deletes the first appearance of such a row, shifts all rows above it one cell down and increases the score by 100 points**  
 So, if you have 2 or more such rows, you need to enter the 's' command that many number of times.  
 **COMMAND- '?n': queries the number of rows deleted and prints it**  
 **COMMAND- '?s': queries the score and prints it**  
@@ -185,3 +185,4 @@ Miscellaneous commands:
 **COMMAND- '!': works as the pause/resume button**  
 **COMMAND- '@': prints the title screen and effectively pauses the game until the resume button is pressed**  
 **COMMAND- 'p': works after the '@' command is given and shows the menu**  
+**COMMAND- ';': prints a newline on the output screen.** Useful when using 'p' or 'P' command multiple times in the same input line.
