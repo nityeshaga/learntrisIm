@@ -1,11 +1,11 @@
-/*tetramino.c FILE CONTAINS ALL THE VARIABLES AND FUNCTION DEFINITIONS REQUIRED FOR IMPLEMENTING AND OPERATING ON THE TETRAMINOS*/
+/*tetramino.c FILE CONTAINS ALL THE VARIABLES AND FUNCTION DEFINITIONS REQUIRED TO MODIFY THE TETRAMINOS*/
 
 #include"tetramino.h"
 #include"generic.h"
 
 tetramino selected= {NULL, 0, NULL, 0};
 
-/*select_tetramino(): assigns the appropriate properties of 'type' tetramino to the 'selected' tetramino variable*/
+/*select_tetramino(): assigns the appropriate properties of 'type' tetramino to the selected tetramino variable*/
 int select_tetramino(char type)
 {
 	if(selected.array!=NULL) {

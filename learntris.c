@@ -6,6 +6,8 @@
 
 #define MAXREAD 100
 
+//#define TESTING
+
 extern int active_row;
 extern int active_column;
 extern tetramino selected;
@@ -77,7 +79,7 @@ int main(void)
 				putchar('\n');
 				break;
 
-			/* p: prints current Matrix state*/
+			/* p: prints current matrix state*/
 			case 'p':
 				if(print_matrix(input)) {
 					printf("Error in printing\n");
@@ -125,6 +127,7 @@ int main(void)
 			case 's': 
 				{
 					int flag;	/*flags if a full row is found*/
+					/*find the first completely full row in matrix if present*/
 					int i, j;
 					for(i= 0; i< 22; ++i) {
 						flag= 1;
@@ -137,6 +140,7 @@ int main(void)
 						if(flag)
 							break;
 					}
+
 					if(flag) {
 						if(clear_row_matrix(i)) {
 							printf("Unable to clear\n");
@@ -145,6 +149,10 @@ int main(void)
 						else {
 							s+=100;
 							n+=1;
+							#ifndef TESTING
+							print_matrix('p');
+							shift_down(i);
+							#endif
 						}
 						break;
 					}
@@ -225,11 +233,13 @@ int main(void)
 				;//printf("%c. /*Not implemented*/", input);/*test 2 failed: //it takes '.' as a value of input*/
 		}
 
+		#ifndef TESTING
 		/*check game over*/
-		/*if(game_over) {
+		if(game_over) {
 			printf("Game Over\n");
 			break;
-		}*/
+		}
+		#endif
 	}
 	while(input!='q');
 		
@@ -267,7 +277,7 @@ void tetramino_on_matrix(void)
 	}
 }
 
-/*print_matrix(): prints either the current state of the matrix(P) or the past one(p)*/
+/*print_matrix(): prints either the current state of the matrix(p) or the expected one(P)*/
 int print_matrix(char input)
 {
 	switch(input) {

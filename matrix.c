@@ -1,4 +1,4 @@
-/*THIS FILE CONTAINS ALL THE VARIABLES AND FUNCTION DEFINITIONS REQUIRED TO IMPLEMENT AND OPERATE ON THE MATRIX*/
+/*THIS FILE CONTAINS ALL THE VARIABLES AND FUNCTION DEFINITIONS REQUIRED TO MODIFY THE MATRIX*/
 
 #include"generic.h"
 #include"matrix.h"
@@ -11,7 +11,7 @@ char matrix[22][10];
 int active_row= -1;
 int active_column= -1;
 
-/*empty_matrix(): assigns '.' to the Matrix elements*/
+/*empty_matrix(): empties the matrix by assigning '.' to the matrix elements*/
 int empty_matrix(void)
 {
 	int i, j;
@@ -22,7 +22,7 @@ int empty_matrix(void)
 	return 0;
 }
 
-/*set_given_matrix(): sets the Matrix to 'given'*/
+/*set_given_matrix(): sets the Matrix to given*/
 int set_given_matrix(void)
 {
 	int i, j;
@@ -40,7 +40,7 @@ int set_given_matrix(void)
 	return 0;
 }
 
-/*clear_row_matrix(): clears a specified row*/
+/*clear_row_matrix(): clears a specified 'row'*/
 int clear_row_matrix(int row)
 {
 	int i;
@@ -49,7 +49,7 @@ int clear_row_matrix(int row)
 	return 0;
 }
 
-/*nudge_right(): nudges the active tetramino to the right if possible*/
+/*nudge_right(): nudges the 'selected' tetramino to the right if possible*/
 int nudge_right(tetramino selected)
 {
 	int new_home= active_column + 1;
@@ -108,4 +108,21 @@ int check_compatible(tetramino selected, int ar, int ac)
 	}
 
 	return flag;
+}
+
+/*shift_down(): shifts all the rows above the 'subject' row, down*/
+void shift_down(int subject)
+{
+	int i;
+	for(i= subject-1; i>=0; --i) {
+		if(check_empty(ROW, &matrix[i][0], 10)) {
+			break;
+		}
+		else {
+			int j;
+			for(j= 0; j< 10; ++j)
+				matrix[i+1][j]= matrix[i][j];
+		}
+	}
+	clear_row_matrix(i+1);
 }

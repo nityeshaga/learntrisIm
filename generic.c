@@ -1,3 +1,5 @@
+/*THIS FILE CONTAINS ALL THE FUNCTION AND OTHER DEFINITIONS REQUIRED BY MORE THAN ONE FILE*/
+
 #include"generic.h"
 
 /*check_empty(): checks if the row/column (specified by 'type') of a square matrix of side length 'dimension', starting with the element at address 'start' is empty for the next 'dimension' no. of elements*/
