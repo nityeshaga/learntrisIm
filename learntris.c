@@ -14,14 +14,12 @@ extern char matrix[22][10];
 void tetramino_on_matrix(void);
 char getnext(void);
 int print_matrix(char input);
-void calliberate(void);
 int collide(void);
-
-char instring[MAXREAD]= {'\n'};
-int cur_index= 0;
+void print_menu(void);
 
 int s= 0; /*register to store score*/
 int n= 0; /*register to store no of cleared lines*/
+int game_over= 0;	/*flags if the game is over*/
 
 int main(void)
 {
@@ -31,8 +29,8 @@ int main(void)
 		return 1;
 	}
 	char input;
+
 	do {
-	
 		input= getnext();
 		switch(input) {
 
@@ -45,8 +43,8 @@ int main(void)
 			case 'L':
 			case 'T':
 
-				/*fix the existing tetramino to the matrix*/
-				if(selected.dimension!=0) {
+				/*fix the existing tetramino to the matrix if not fixed already*/
+				if(selected.dimension!=0 && !selected.fix) {	/*if a tetramino has been chosen and it is not fixed*/
 					if(active_row==22- (selected.dimension- selected.n_empty[BOTTOM]))
 						tetramino_on_matrix();
 					else {
@@ -183,23 +181,68 @@ int main(void)
 			case 'q':
 				break;
 
+			/* '@': print start screen*/
+			case '@':
+				printf("Learntris (c) 1992 Tetraminex, Inc.\n");
+				do {
+				input= getnext();
+
+					switch(input) {
+
+						/* 'p': print menu*/
+						case 'p':
+							printf("Press start button to begin.\n");
+							break;
+
+						default:
+							;
+					}
+				}
+				while(input!='!');
+				break;
+
+			/* '!': pause*/
+			case '!':
+				printf("Paused\n");
+				do {
+				input= getnext();
+
+					switch(input) {
+
+						/* 'p': print menu*/
+						case 'p':
+							printf("Press start button to continue.\n");
+							break;
+
+						default:
+							;
+					}
+				}
+				while(input!='!');
+				break;
+
 			default:
 				;//printf("%c. /*Not implemented*/", input);/*test 2 failed: //it takes '.' as a value of input*/
 		}
+
+		/*check game over*/
+		/*if(game_over) {
+			printf("Game Over\n");
+			break;
+		}*/
 	}
 	while(input!='q');
+		
+	if(game_over) {
+		printf("Game Over\n");
+	}
+
 	return 0;
 }
 
 /*getnext(): returns the next non-space character in the buffer*/
 char getnext(void)
 {
-	/*if(instring[cur_index]=='\n') {
-		fgets(instring, MAXREAD, stdin);
-		cur_index= 0;
-	}
-	return instring[cur_index++];*/
-
 	char c= ' ';
 	while(c==' ' || c=='\n')
 		c= getchar();
@@ -215,6 +258,12 @@ void tetramino_on_matrix(void)
 			if(i>=active_row && j>=active_column && i<active_row+selected.dimension && j<active_column+selected.dimension && matrix[i][j]=='.')
 				matrix[i][j]= selected.array[i-active_row][j-active_column];
 		}
+	}
+	selected.fix= 1;
+
+	/*check game over*/
+	if(active_row==0) {
+		game_over= 1;
 	}
 }
 
@@ -299,5 +348,7 @@ int collide(void)
 	return ar;
 }
 
-
-//if(!check_empty(ROW, &matrix[i][ac+selected.n_empty[LEFT]], selected.dimension-(selected.n_empty[LEFT]+selected.n_empty[RIGHT])))
+/*print_menu(): prints the menu*/
+void print_menu(void) {
+	printf("Press start button to begin\n");
+}

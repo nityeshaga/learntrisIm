@@ -6,7 +6,6 @@
 /*the data structure chosen for the matrix must allow for frequent data insertions and deletions at any desired position
  *it should also allow us to rewrite the whole matrix
  *a 2D array seems to be the appropriate choice for the data structure*/
-//char **matrix;
 char matrix[22][10];
 
 int active_row= -1;

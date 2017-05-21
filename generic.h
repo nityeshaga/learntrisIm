@@ -14,6 +14,7 @@ typedef struct tetramino
 	char **array;	/*2D matrix that stores the tetramino shape*/
 	int dimension;	/*length of side of square matrix that stores the tetramino*/
 	char *n_empty;	/*no. of empty rows/columns from the TOP, BOTTOM, RIGHT OR LEFT of the tetramino matrix*/
+	int fix;		/*flags if the tetramino has been fixed to the matrix*/
 } tetramino;
 
 int check_empty(int, char *, int);

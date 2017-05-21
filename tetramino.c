@@ -3,7 +3,7 @@
 #include"tetramino.h"
 #include"generic.h"
 
-tetramino selected= {NULL, 0, NULL};
+tetramino selected= {NULL, 0, NULL, 0};
 
 /*select_tetramino(): assigns the appropriate properties of 'type' tetramino to the 'selected' tetramino variable*/
 int select_tetramino(char type)
@@ -13,6 +13,7 @@ int select_tetramino(char type)
 		free(selected.array);
 	}
 
+	selected.fix= 0;
 	selected.dimension= 4;
 	selected.n_empty= (char *)malloc(sizeof(char) * 4);
 	array_init(&selected.array, selected.dimension, selected.dimension);
@@ -222,12 +223,8 @@ int rotate(char type)
 void calc_emptiness(void)
 {
 	int i;
-	/*for(i= 0; i< 4; ++i)
-		selected.n_empty[i]= 0;*/
-	selected.n_empty[0]= 0;
-	selected.n_empty[1]= 0;
-	selected.n_empty[2]= 0;
-	selected.n_empty[3]= 0;
+	for(i= 0; i< 4; ++i)
+		selected.n_empty[i]= 0;
 
 	/*from the LEFT*/
 	i= 0;
