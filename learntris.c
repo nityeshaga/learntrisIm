@@ -6,7 +6,7 @@
 
 #define MAXREAD 100
 
-//#define TESTING
+//#define TESTING	/*uncomment this line when running testris.py*/
 
 extern int active_row;
 extern int active_column;
@@ -31,6 +31,33 @@ int main(void)
 		return 1;
 	}
 	char input;
+
+	#ifndef TESTING
+	printf("Learntris (c) 1992 Tetraminex, Inc.\n"
+			"Press 'p' for help\n");
+	do {
+		input= getnext();
+
+		switch(input) {
+
+			/* 'p': print menu*/
+			case 'p':
+				printf( "1. Press start button ('!') to begin.\n"
+						"2. Press 'q' to quit\n");
+
+			/* 'q': quit game*/
+			case 'q':
+				printf("Quitting.\n");
+				return 0;
+				break;
+
+			default:
+				printf("Invalid input\n");
+				;
+		}
+	}
+	while(input!='!');
+	#endif
 
 	do {
 		input= getnext();

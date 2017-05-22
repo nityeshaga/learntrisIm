@@ -3,23 +3,27 @@ Learntris
 #### ABOUT THE GAME:
 This program tries to implement the classic game of Tetris on a terminal. If you are not familar with the game, you can try it [here](http://tetris.com/play-tetris/).
 
-The playing field is made up of a matrix (22 X 10).
+The playing field is made up of a 22 X 10 matrix.
 
 The falling blocks are called tetraminos and as a physical unit in the game. There are 7 types of tetraminos that are named based on their shapes-
 the I, the O, the S, the Z, the T, the J and the L tetramino.
 
 #### THE FILEPLAN:
 The following files have been added by me (author- [Nityesh Agarwal](https://github.com/nityeshaga)) to the [original fork](https://github.com/LearnProgramming/learntris):
-* [matrix.c](https://github.com/nityeshaga/learntris/blob/master/matrix.c): contains all the functions that modify the 2D matrix.
-* [tetramino.c](https://github.com/nityeshaga/learntris/blob/master/tetramino.c): contains all the functions that modify the tetramino.
-* [learntris.c](https://github.com/nityeshaga/learntris/blob/master/learntris.c): links to the above mentioned files, contains the main() function and the functions that do not fall in the above mentioned categories. 
-* [generic.c](https://github.com/nityeshaga/learntris/blob/master/generic.c): contains all functions that are need by more than one file.
-* [matrix.h](https://github.com/nityeshaga/learntris/blob/master/matrix.h), [tetramino.h](https://github.com/nityeshaga/learntris/blob/master/tetramino.h): header files for matrix.c and tetramino.c.
-* [generic.h](https://github.com/nityeshaga/learntris/blob/master/generic.h): header file for generic.c, also contains the struct definition of tetramino.
-* [makefile](https://github.com/nityeshaga/learntris/blob/master/makefile): makefile for compiling learntris.
-* [makefile.debug](https://github.com/nityeshaga/learntris/blob/master/makefile.debug): makefile for compiling for debugging with appropriate symbols.
+* [matrix.c](https://github.com/nityeshaga/learntris/blob/master/matrix.c): contains all the functions that modify or are needed to modify the 2D matrix.  
+* [tetramino.c](https://github.com/nityeshaga/learntris/blob/master/tetramino.c): contains all the functions that modify or are needed to modify the tetramino.  
+* [learntris.c](https://github.com/nityeshaga/learntris/blob/master/learntris.c): links to the above mentioned files and generic.c, contains the main() function and some other functions that are private to it.  
+* [generic.c](https://github.com/nityeshaga/learntris/blob/master/generic.c): contains all functions that are called by more than one file.  
+* [matrix.h](https://github.com/nityeshaga/learntris/blob/master/matrix.h), [tetramino.h](https://github.com/nityeshaga/learntris/blob/master/tetramino.h): header files for matrix.c and tetramino.c.  
+* [generic.h](https://github.com/nityeshaga/learntris/blob/master/generic.h): header file for generic.c, also contains the struct definition of tetramino and a bunch of other macros.  
+* [makefile](https://github.com/nityeshaga/learntris/blob/master/makefile): makefile for compiling learntris.  
+* [makefile.debug](https://github.com/nityeshaga/learntris/blob/master/makefile.debug): makefile for compiling for debugging with appropriate symbols.  
 
-All the other files provide a set of automated tests that will guide you through implementing your own version of
+*__NOTE__: The lowest tier consists of generic.c. By default, it can access only its own functions and variables.   
+The 2nd tier consists of matrix.c and tetramino.c. by default, they can access only the functions and definitions of generic.c and their own.  
+The 3rd tier consists of learntris.c. It can access all functions and definitions from generic.c, matrix.c and tetramino.c, along with the ones init contains.*  
+
+All the other files provide a set of automated tests that have guided me through implementing my own version of
 [Tetris](https://en.wikipedia.org/wiki/Tetris). These were provided by [LearnProgramming/learntris](https://github.com/LearnProgramming/learntris). [This will direct you to the readme page of that repo](https://github.com/LearnProgramming/learntris/blob/master/README.md#the-learntris-challenge).
 
 #### HOW TO RUN:
@@ -61,7 +65,7 @@ As mentioned before, the playing field consists of 22 X 10 matrix like this:
 `. . . . . . . . . .` # 18  
 `. . . . . . . . . .` # 19  
 `. . . . . . . . . .` # 20  
-`. . . . . . . . . . # 21`  
+`. . . . . . . . . .` # 21  
 
 The dots imply empty indices.  
 **COMMAND- 'p': To view the current state of the matrix, press 'p'** (you won't be shown the number for each line as shown above and in the examples below).
@@ -105,7 +109,7 @@ There are 7 types of tetraminos-
 `m m m`  
 `. . .`  
 
-**COMMAND- 'I', 'O', 'Z', 'S', 'J', 'L', 'T': pressing any of these selects the corresponding tetramino, places it on the matrix and makes it active**  
+**COMMAND- 'I', 'O', 'Z', 'S', 'J', 'L', 'T': pressing any of these selects the corresponding tetramino, spawns it on the matrix and makes it active**  
 **COMMAND- 'P': prints the matrix along with the active tetramino**  
 *__NOTE__: selecting a tetramino does not fix it to the matrix, therefore, it does not define its current state, which means that the command- 'p' will not show it on the matrix*
 
