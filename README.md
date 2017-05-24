@@ -187,7 +187,7 @@ Whenever you are able to completely fill a row, you are eligible to add 100 poin
 So, if you have 2 or more such rows, you need to enter the 's' command that many number of times.  
 **COMMAND- '?n': queries the number of rows deleted and prints it**  
 **COMMAND- '?s': queries the score and prints it**  
-**COMMAND- ';': prints a newline on the output screen.** Useful when using 'p' or 'P' command multiple times in the same input line.**
+**COMMAND- ';': prints a newline on the output screen.** Useful when using 'p' or 'P' command multiple times in the same input line.
 
 Miscellaneous commands:  
 **COMMAND- '!': works as the pause/resume button**  
@@ -207,6 +207,7 @@ Although C is not the language to create games, it does a fantastic job at creat
   * Try improving the documentation.  
   * Try fixing a bug you have found.  
   * Or, thought of a new feature to add to the game? Tell everyone about it by opening an issue. Better yet, write the code to add it!
+* Or, help in any other way I might have missed.
 
 All contributions are greatly appreciated. Please contact [me](https://github.com/nityeshaga) for any queries or information about the code or the project.  
 Thank you!!  
