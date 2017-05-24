@@ -9,7 +9,7 @@ The falling blocks are called tetraminos and as a physical unit in the game. The
 the I, the O, the S, the Z, the T, the J and the L tetramino.
 
 The aim of creating this program is not to create a game, C is hardly the language to use for creating a game.
-The aim is to create a program that is large enough to warrant the use of dozens of functions split across multiple source files and of a separate test program to help in the development process (called [test-driven development](https://en.wikipedia.org/wiki/Test-driven_development), a program that is complex enough to provide a stage for using all the best and somewhat difficult features of the C language and apply the ideas of programming one learns, into a large project and see them affect the whole thing.
+The aim is to create a program that is large enough to warrant the use of dozens of functions split across multiple source files and of a separate test program to help in the development process (called [test-driven development](https://en.wikipedia.org/wiki/Test-driven_development)), a program that is complex enough to provide a stage for using all the best and somewhat difficult features of the C language and apply the ideas of programming one learns, into a large project and see them affect the whole thing.
 
 #### THE FILEPLAN:
 The following files have been added by me (author- [Nityesh Agarwal](https://github.com/nityeshaga)) to the [original fork](https://github.com/LearnProgramming/learntris):
@@ -27,7 +27,7 @@ The 2nd tier consists of matrix.c and tetramino.c. by default, they can access o
 The 3rd tier consists of learntris.c. It can access all functions and definitions from generic.c, matrix.c and tetramino.c, along with the ones init contains.*  
 
 All the other files provide a set of automated tests that have guided me through implementing my own version of
-[Tetris](https://en.wikipedia.org/wiki/Tetris). These were provided by [LearnProgramming/learntris](https://github.com/LearnProgramming/learntris). [This will direct you to the readme page of that repo](https://github.com/LearnProgramming/learntris/blob/master/README.md#the-learntris-challenge).
+[Tetris](https://en.wikipedia.org/wiki/Tetris). These were provided by [LearnProgramming/learntris](https://github.com/LearnProgramming/learntris). Look at the [readme page](https://github.com/LearnProgramming/learntris/blob/master/README.md#the-learntris-challenge) of that repository.
 
 #### HOW TO RUN:
 1. Fork this repository
@@ -40,7 +40,7 @@ All the other files provide a set of automated tests that have guided me through
 
 *__NOTE__: All the commands implemented right now* (date- 21.05.17) *were created to pass the tests mentioned in [testplan.org](https://github.com/LearnProgramming/learntris/blob/master/testplan.org) in (https://github.com/LearnProgramming/learntris).*
 
-*__NOTE__: This is a Work In Progress. So these instructions must be looked at, as mere features that have been currently implemented in their most basic form and not as instructions at playing a fully developed game. There are many bugs in the code, so many that almost every command can be broken using some set of input. Which means that you __will__ encounter some when you run the code. So, if you do decide to run the code, please consider [contributing] to its development*
+*__NOTE__: This is a Work In Progress. So these instructions must be looked at, as mere features that have been currently implemented in their most basic form and not as instructions at playing a fully developed game. There are many bugs in the code, so many that almost every command can be broken using some set of input. Which means that you __will__ encounter some when you run the code. So, if you do decide to run the code, please consider [contributing](https://github.com/nityeshaga/learntris/blob/master/README.md#contribute) to its development*
 
 *__NOTE__: As this is a command line game, all commands mentioned here must be proceeded with a newline (implying that you need to press enter after each command) to execute them. You are allowed to enter multiple commands in one line, with or without spaces but none of them will execute until you press enter.*
 
@@ -209,5 +209,5 @@ Although C is not the language to create games, it does a fantastic job at creat
   * Or, thought of a new feature to add to the game? Tell everyone about it by opening an issue. Better yet, write the code to add it!
 * Or, help in any other way I might have missed.
 
-All contributions are greatly appreciated. Please contact [me](https://github.com/nityeshaga) for any queries or information about the code or the project.  
+All contributions are greatly appreciated. Please contact [me](https://github.com/nityeshaga) for any queries or more information about the code or the project.  
 Thank you!!  
