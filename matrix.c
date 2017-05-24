@@ -54,7 +54,7 @@ int nudge_right(tetramino selected)
 {
 	int new_home= active_column + 1;
 	if(new_home < 10- ((selected.dimension-1)- selected.n_empty[RIGHT])) {
-		if(check_compatible(selected, active_row, new_home))
+		if(is_compatible(matrix, selected, active_row, new_home))
 			active_column= new_home;
 		else
 			return -1;
@@ -69,7 +69,7 @@ int nudge_left(tetramino selected)
 {
 	int new_home= active_column - 1; 
 	if(new_home+selected.n_empty[LEFT]>=0) {
-		if(check_compatible(selected, active_row, new_home))
+		if(is_compatible(matrix, selected, active_row, new_home))
 			active_column= new_home;
 		else
 			return -1;
@@ -85,29 +85,12 @@ int move_down(tetramino selected)
 	int new_home= active_row+1;
 	int range= selected.dimension- selected.n_empty[BOTTOM];
 	if(new_home < 22- (range- 1)) {
-		if(check_compatible(selected, new_home, active_column))
+		if(is_compatible(matrix, selected, new_home, active_column))
 			active_row= new_home;
 	}
 	else
 		return -1;
 	return 0;
-}
-
-/*check_compatible(): returns 1 if the 'selected' tetramino can be placed with it 1st element at ['ar', 'ac']*/
-int check_compatible(tetramino selected, int ar, int ac)
-{
-	int flag= 1;	/*flags if the tetramino is compatible*/
-	int i, j;
-	for(i= ar; i< ar+selected.dimension; ++i) {
-		for(j= ac; j< ac+selected.dimension; ++j) {
-			if(matrix[i][j]!='.' && selected.array[i-ar][j-ac]!='.') {
-				flag= 0;
-				break;
-			}
-		}
-	}
-
-	return flag;
 }
 
 /*shift_down(): shifts all the rows above the 'subject' row, down*/

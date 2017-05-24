@@ -10,5 +10,4 @@ int clear_row_matrix(int);
 int nudge_right(tetramino);
 int nudge_left(tetramino);
 int move_down(tetramino);
-int check_compatible(tetramino, int, int);
 void shift_down(int);

@@ -20,3 +20,4 @@ typedef struct tetramino
 int check_empty(int, char *, int);
 int check_empty_column(int new_home, char **array, int, int);
 int array_init(char ***array, int nrows, int ncolumns);
+int is_compatible(char matrix[22][10], tetramino selected, int ar, int ac);

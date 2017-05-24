@@ -52,4 +52,21 @@ int array_init(char ***array, int nrows, int ncolumns)
 		(*array)[i]= (**array + nrows * i);
 }
 
+/*check_compatible(): returns 1 if the 'selected' tetramino can be placed with it 1st element at ['ar', 'ac']*/
+int is_compatible(char matrix[22][10], tetramino selected, int ar, int ac)
+{
+	int flag= 1;	/*flags if the tetramino is compatible*/
+	int i, j;
+	for(i= ar; i< ar+selected.dimension; ++i) {
+		for(j= ac; j< ac+selected.dimension; ++j) {
+			if(matrix[i][j]!='.' && selected.array[i-ar][j-ac]!='.') {
+				flag= 0;
+				break;
+			}
+		}
+	}
+
+	return flag;
+}
+
 
