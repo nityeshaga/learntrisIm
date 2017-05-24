@@ -1,12 +1,15 @@
 Learntris
 =======================
-#### ABOUT THE GAME:
+#### ABOUT:
 This program tries to implement the classic game of Tetris on a terminal. If you are not familar with the game, you can try it [here](http://tetris.com/play-tetris/).
 
 The playing field is made up of a 22 X 10 matrix.
 
 The falling blocks are called tetraminos and as a physical unit in the game. There are 7 types of tetraminos that are named based on their shapes-
 the I, the O, the S, the Z, the T, the J and the L tetramino.
+
+The aim of creating this program is not to create a game, C is hardly the language to use for creating a game.
+The aim is to create a program that is large enough to warrant the use of dozens of functions split across multiple source files and of a separate test program to help in the development process (called [test-driven development](https://en.wikipedia.org/wiki/Test-driven_development), a program that is complex enough to provide a stage for using all the best and somewhat difficult features of the C language and apply the ideas of programming one learns, into a large project and see them affect the whole thing.
 
 #### THE FILEPLAN:
 The following files have been added by me (author- [Nityesh Agarwal](https://github.com/nityeshaga)) to the [original fork](https://github.com/LearnProgramming/learntris):
@@ -104,7 +107,7 @@ There are 7 types of tetraminos-
 `o o o`  
 `. . .`  
 
-* The T tetramino, colour- magneta:  
+* The T tetramino, colour- magenta:  
 `. m .`  
 `m m m`  
 `. . .`  
@@ -150,7 +153,7 @@ Here's an example illustrating the above commands:
 `. . . . . . . . . .` # 18  
 `. . . . . . . . . .` # 19  
 `. . . . . . . . . .` # 20  
-`. . . . . . . . . . # 21`  
+`. . . . . . . . . .` # 21  
 
 Here's another example:  
 
@@ -184,9 +187,26 @@ Whenever you are able to completely fill a row, you are eligible to add 100 poin
 So, if you have 2 or more such rows, you need to enter the 's' command that many number of times.  
 **COMMAND- '?n': queries the number of rows deleted and prints it**  
 **COMMAND- '?s': queries the score and prints it**  
+**COMMAND- ';': prints a newline on the output screen.** Useful when using 'p' or 'P' command multiple times in the same input line.**
 
 Miscellaneous commands:  
 **COMMAND- '!': works as the pause/resume button**  
 **COMMAND- '@': prints the title screen and effectively pauses the game until the resume button is pressed**  
 **COMMAND- 'p': works after the '@' command is given and shows the menu**  
-**COMMAND- ';': prints a newline on the output screen.** Useful when using 'p' or 'P' command multiple times in the same input line.
+**COMMAND- 'g': to set the matrix to a given state by specifying each of the 22x10 characters in sequence**
+
+#### CONTRIBUTE:
+
+Although C is not the language to create games, it does a fantastic job at creating a terminal application for Linux. In its essence, this is what this program is. So, there are numerous areas for improvement in it. Here are a few ways you could help:  
+
+* Read through the code and do a little code review.  
+  * Comment on the readability of the code. Was it easy to read the code? Could you follow it?  
+  * Comment on the division of tasks among functions or the control flow in the program.  
+* Run the program on your machine and check for the robustness of the code. See if it behaves rationally for all kinds of input.  
+* It would be really awesome if you decided to contribute some code.  
+  * Try improving the documentation.  
+  * Try fixing a bug you have found.  
+  * Or, thought of a new feature to add to the game? Tell everyone about it by opening an issue. Better yet, write the code to add it!
+
+All contributions are greatly appreciated. Please contact [me](https://github.com/nityeshaga) for any queries or information about the code or the project.  
+Thank you!!  
