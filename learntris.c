@@ -44,6 +44,7 @@ int main(void)
 			case 'p':
 				printf( "1. Press start button ('!') to begin.\n"
 						"2. Press 'q' to quit\n");
+				break;
 
 			/* 'q': quit game*/
 			case 'q':
@@ -51,9 +52,12 @@ int main(void)
 				return 0;
 				break;
 
+			case '!':
+				;
+				break;
+
 			default:
 				printf("Invalid input\n");
-				;
 		}
 	}
 	while(input!='!');
@@ -73,7 +77,7 @@ int main(void)
 			case 'T':
 
 				/*fix the existing tetramino to the matrix if not fixed already*/
-				if(selected.dimension!=0 && !selected.fix) {	/*if a tetramino has been chosen and it is not fixed*/
+				if(selected.dimension!=0 && !selected.fix) {
 					if(active_row==22- (selected.dimension- selected.n_empty[BOTTOM]))
 						tetramino_on_matrix();
 					else {
@@ -94,13 +98,30 @@ int main(void)
 
 			/*rotate the active tetramino clockwise*/
 			case ')':
-				rotate(input);
-				break;
-
 			/*rotate the active tetramino anti-clockwise*/
 			case '(':
-				rotate(input);
+				{
+					tetramino test;
+					test= rotate(input);
+
+					if(test.dimension==0)
+						printf("Select a tetramino first\n");
+
+					/*update 'selected' only if the new configuration is compatible*/
+					if(is_compatible(matrix, test, active_row, active_column)) {
+						free(selected.array[0]);
+						free(selected.array);
+						selected= test;
+					}
+					/*no rotation happens otherwise*/
+					else {
+						free(test.array[0]);
+						free(test.array);
+					}
+
+				}
 				break;
+
 			/*put a newline on the output*/
 			case ';':
 				putchar('\n');

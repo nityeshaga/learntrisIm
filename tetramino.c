@@ -1,7 +1,7 @@
 /*tetramino.c FILE CONTAINS ALL THE VARIABLES AND FUNCTION DEFINITIONS REQUIRED TO MODIFY THE TETRAMINOS*/
 
-#include"tetramino.h"
 #include"generic.h"
+#include"tetramino.h"
 
 tetramino selected= {NULL, 0, NULL, 0};
 
@@ -158,7 +158,7 @@ int select_tetramino(char type)
 		default:
 			return 1;
 	}
-	calc_emptiness();
+	calc_emptiness(selected);
 	return 0;
 }
 
@@ -179,20 +179,18 @@ int display_tetramino(void)
 }
 
 /*rotate(): rotates the tetramino clockwise or anticlockwise as directed by 'type' by 90 degrees*/
-int rotate(char type)
+tetramino rotate(char type)
 {
 	if(selected.dimension==0)
-		return 1;
+		return selected;
 
 	/*create a tetramino variable-temp*/
-	tetramino temp= {NULL, 0};
+	tetramino temp= {NULL, 0, NULL};
 	temp.dimension= selected.dimension;
-	temp.array= (char **)malloc(sizeof(char *) * temp.dimension);
-	temp.array[0]= (char *)malloc(sizeof(char) * temp.dimension * temp.dimension);
-	int i, j, k; 
-	for(i= 0; i< temp.dimension; i++)
-		temp.array[i]= (temp.array[0] + temp.dimension * i);
+	array_init(&temp.array, temp.dimension, temp.dimension);
+	temp.n_empty= (char *)malloc(sizeof(char) * 4);
 
+	int i, j, k;
 	/*initialize temp.array to store '.'*/
 	for(i= 0; i< selected.dimension; ++i)
 		for(j= 0; j< selected.dimension; ++j)
@@ -212,15 +210,13 @@ int rotate(char type)
 				temp.array[j][i]= selected.array[i][k];
 	}
 
-	/*change the address stored on selected.array*/
-	selected.array= temp.array;
+	calc_emptiness(temp);
 
-	calc_emptiness();
-	return 0;
+	return temp;
 }
 
-/*calc_emptiness(): evaluates the no. of empty rows and columns in the tetramino's 2D array and changes the 'selected' variable appropriately*/
-void calc_emptiness(void)
+/*calc_emptiness(): evaluates the no. of empty rows and columns in the 'selected's 2D array and makes appropriate changes*/
+void calc_emptiness(tetramino selected)
 {
 	int i;
 	for(i= 0; i< 4; ++i)

@@ -5,5 +5,5 @@
 
 int select_tetramino(char type);
 int display_tetramino(void);
-int rotate(char);
-void calc_emptiness(void);
+tetramino rotate(char);
+void calc_emptiness(tetramino);
