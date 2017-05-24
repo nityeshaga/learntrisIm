@@ -17,7 +17,7 @@ typedef struct tetramino
 	int fix;		/*flags if the tetramino has been fixed to the matrix*/
 } tetramino;
 
-int check_empty(int, char *, int);
+int check_empty_row(char *, int);
 int check_empty_column(int new_home, char **array, int, int);
 int array_init(char ***array, int nrows, int ncolumns);
 int is_compatible(char matrix[22][10], tetramino selected, int ar, int ac);

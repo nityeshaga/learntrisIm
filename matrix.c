@@ -98,7 +98,7 @@ void shift_down(int subject)
 {
 	int i;
 	for(i= subject-1; i>=0; --i) {
-		if(check_empty(ROW, &matrix[i][0], 10)) {
+		if(check_empty_row(&matrix[i][0], 10)) {
 			break;
 		}
 		else {

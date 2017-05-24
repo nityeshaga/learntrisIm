@@ -238,14 +238,14 @@ void calc_emptiness(tetramino selected)
 
 	/*from the TOP*/
 	i= 0;
-	while(i< selected.dimension && check_empty(ROW, &selected.array[i][0], selected.dimension)) {
+	while(i< selected.dimension && check_empty_row(&selected.array[i][0], selected.dimension)) {
 		++i;
 		++selected.n_empty[TOP];
 	}
 	
 	/*from the BOTTOM*/
 	i= selected.dimension-1;
-	while(i>=0 && check_empty(ROW, &selected.array[i][0], selected.dimension)) {
+	while(i>=0 && check_empty_row(&selected.array[i][0], selected.dimension)) {
 		--i;
 		++selected.n_empty[BOTTOM];
 	}

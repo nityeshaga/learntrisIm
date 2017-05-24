@@ -2,27 +2,18 @@
 
 #include"generic.h"
 
-/*check_empty(): checks if the row/column (specified by 'type') of a square matrix of side length 'dimension', starting with the element at address 'start' is empty for the next 'dimension' no. of elements*/
-int check_empty(int type, char *start, int dimension)
+/*check_empty_row(): checks if the row of a square matrix of side length 'dimension', starting with the element at address 'start' is empty for the next 'dimension' no. of elements*/
+int check_empty_row(char *start, int dimension)
 {
-	switch(type) {
-		case ROW:
-			{
-				int flag= 0;	/*flags if a non-empty character is found*/
-				int i;
-				for(i= 0; i< dimension; ++i) {
-					if(*(start+i)!= '.') {
-						flag= 1;
-						break;
-					}
-				}
-				return !flag;
-			}
+	int flag= 0;	/*flags if a non-empty character is found*/
+	int i;
+	for(i= 0; i< dimension; ++i) {
+		if(*(start+i)!= '.') {
+			flag= 1;
 			break;
-
-		default:
-			;
+		}
 	}
+	return !flag;
 }
 
 /*check_empty_column(): checks if the column specified by 'new_home' in the 'array' is empty, starting with 'active_row', for next 'dimension' no. of elements*/
