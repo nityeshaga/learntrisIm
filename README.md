@@ -209,5 +209,5 @@ Although C is not the language to create games, it does a fantastic job at creat
   * Or, thought of a new feature to add to the game? Tell everyone about it by opening an issue. Better yet, write the code to add it!
 * Or, help in any other way I might have missed.
 
-All contributions are greatly appreciated. Please contact [me](https://github.com/nityeshaga) for any queries or more information about the code or the project.  
+All contributions are greatly appreciated. Please contact me for any queries or more information about the code or the project.  
 Thank you!!  
