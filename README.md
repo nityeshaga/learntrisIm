@@ -202,6 +202,7 @@ Although C is not the language to create games, it does a fantastic job at creat
 * Read through the code and do a little code review.  
   * Comment on the readability of the code. Was it easy to read the code? Could you follow it?  
   * Comment on the division of tasks among functions or the control flow in the program.  
+  * Tell me how the code can be improved.
 * Run the program on your machine and check for the robustness of the code. See if it behaves rationally for all kinds of input.  
 * It would be really awesome if you decided to contribute some code.  
   * Try improving the documentation.  
