@@ -6,7 +6,7 @@
 
 #define MAXREAD 100
 
-//#define TESTING	/*uncomment this line when running testris.py*/
+#define TESTING	/*uncomment this line when running testris.py*/
 
 extern int active_row;
 extern int active_column;
@@ -109,14 +109,12 @@ int main(void)
 
 					/*update 'selected' only if the new configuration is compatible*/
 					if(is_compatible(matrix, test, active_row, active_column)) {
-						free(selected.array[0]);
-						free(selected.array);
+						free(selected.n_empty);
 						selected= test;
 					}
 					/*no rotation happens otherwise*/
 					else {
-						free(test.array[0]);
-						free(test.array);
+						free(test.n_empty);
 					}
 
 				}
@@ -278,7 +276,7 @@ int main(void)
 				break;
 
 			default:
-				;//printf("%c. /*Not implemented*/", input);/*test 2 failed: //it takes '.' as a value of input*/
+				;
 		}
 
 		#ifndef TESTING

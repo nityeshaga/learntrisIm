@@ -3,20 +3,20 @@
 #include"generic.h"
 #include"tetramino.h"
 
-tetramino selected= {NULL, 0, NULL, 0};
+tetramino selected;
 
 /*select_tetramino(): assigns the appropriate properties of 'type' tetramino to the selected tetramino variable*/
 int select_tetramino(char type)
 {
+	
 	if(selected.array!=NULL) {
-		free(selected.array[0]);
-		free(selected.array);
+		free(selected.n_empty);
 	}
+	
 
 	selected.fix= 0;
 	selected.dimension= 4;
 	selected.n_empty= (char *)malloc(sizeof(char) * 4);
-	array_init(&selected.array, selected.dimension, selected.dimension);
 
 	switch(type) {
 		case 'I':
@@ -185,9 +185,8 @@ tetramino rotate(char type)
 		return selected;
 
 	/*create a tetramino variable-temp*/
-	tetramino temp= {NULL, 0, NULL};
+	tetramino temp;
 	temp.dimension= selected.dimension;
-	array_init(&temp.array, temp.dimension, temp.dimension);
 	temp.n_empty= (char *)malloc(sizeof(char) * 4);
 
 	int i, j, k;

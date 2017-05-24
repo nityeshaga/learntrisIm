@@ -17,12 +17,12 @@ int check_empty_row(char *start, int dimension)
 }
 
 /*check_empty_column(): checks if the column specified by 'new_home' in the 'array' is empty, starting with 'active_row', for next 'dimension' no. of elements*/
-int check_empty_column(int new_home, char **array, int active_row, int dimension)
+int check_empty_column(int new_home, char array[4][4], int active_row, int dimension)
 {
 	int flag= 0;
 	int i;
 	for(i= 0; i< dimension; ++i) {
-		if(check_empty(ROW, &array[active_row+i][new_home], 1)==0) {
+		if(check_empty_row(&array[active_row+i][new_home], 1)==0) {
 			flag= 1;
 			break;
 		}
@@ -31,16 +31,6 @@ int check_empty_column(int new_home, char **array, int active_row, int dimension
 		return 1;
 	else
 		return 0;
-}
-
-/*array_init: allocates memory to a 2D array of 'nrows' no. of rows and 'ncolumns' no of columns using pointer to pointer*/
-int array_init(char ***array, int nrows, int ncolumns)
-{
-	*array= (char **)malloc(sizeof(char *) * nrows);
-	(*array)[0]= (char *)malloc(sizeof(char) * nrows * ncolumns);
-	int i; 
-	for(i= 0; i< nrows; i++)
-		(*array)[i]= (**array + nrows * i);
 }
 
 /*check_compatible(): returns 1 if the 'selected' tetramino can be placed with it 1st element at ['ar', 'ac']*/
@@ -59,5 +49,3 @@ int is_compatible(char matrix[22][10], tetramino selected, int ar, int ac)
 
 	return flag;
 }
-
-
