@@ -6,7 +6,7 @@
 
 #define MAXREAD 100
 
-//#define TESTING	/*uncomment this line when running testris.py*/
+#define TESTING	/*uncomment this line when running testris.py*/
 
 extern int active_row;
 extern int active_column;
