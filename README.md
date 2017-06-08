@@ -1,7 +1,9 @@
-Learntris
+LearntrisIm
 =======================
 #### ABOUT:
-This program tries to implement the classic game of Tetris on a terminal. If you are not familar with the game, you can try it [here](http://tetris.com/play-tetris/).
+This program tries to implement the classic game of Tetris on a terminal. If you are not familar with the game, you can try playing it [here](http://tetris.com/play-tetris/).
+
+LearntrisIm is a fork of [LearnProgramming/learntris](https://github.com/LearnProgramming/learntris) and has been created based on the test suite provided in it.
 
 The playing field is made up of a 22 X 10 matrix.
 
@@ -22,9 +24,9 @@ The following files have been added by me (author- [Nityesh Agarwal](https://git
 * [makefile](https://github.com/nityeshaga/learntris/blob/master/makefile): makefile for compiling learntris.  
 * [makefile.debug](https://github.com/nityeshaga/learntris/blob/master/makefile.debug): makefile for compiling for debugging with appropriate symbols.  
 
-*__NOTE__: The lowest tier consists of generic.c. By default, it can access only its own functions and variables.   
+*__QUICK VIEW- SOURCE__: The lowest tier consists of generic.c. By default, it can access only its own functions and variables.   
 The 2nd tier consists of matrix.c and tetramino.c. by default, they can access only the functions and definitions of generic.c and their own.  
-The 3rd tier consists of learntris.c. It can access all functions and definitions from generic.c, matrix.c and tetramino.c, along with the ones init contains.*  
+The 3rd tier consists of learntris.c. It can access all functions and definitions from generic.c, matrix.c and tetramino.c, along with the ones it contains.*  
 
 All the other files provide a set of automated tests that have guided me through implementing my own version of
 [Tetris](https://en.wikipedia.org/wiki/Tetris). These were provided by [LearnProgramming/learntris](https://github.com/LearnProgramming/learntris). Look at the [readme page](https://github.com/LearnProgramming/learntris/blob/master/README.md#the-learntris-challenge) of that repository.
@@ -38,7 +40,7 @@ All the other files provide a set of automated tests that have guided me through
 
 #### HOW TO PLAY:
 
-*__NOTE__: All the commands implemented right now* (date- 21.05.17) *were created to pass the tests mentioned in [testplan.org](https://github.com/LearnProgramming/learntris/blob/master/testplan.org) in (https://github.com/LearnProgramming/learntris).*
+*__NOTE__: All the commands, implemented in the beginning, were created to pass the tests mentioned in [testplan.org](https://github.com/LearnProgramming/learntris/blob/master/testplan.org) in (https://github.com/LearnProgramming/learntris).*
 
 *__NOTE__: This is a Work In Progress. So these instructions must be looked at, as mere features that have been currently implemented in their most basic form and not as instructions at playing a fully developed game. There are many bugs in the code, so many that almost every command can be broken using some set of input. Which means that you __will__ encounter some when you run the code. So, if you do decide to run the code, please consider [contributing](https://github.com/nityeshaga/learntris/blob/master/README.md#contribute) to its development*
 
@@ -199,16 +201,18 @@ Miscellaneous commands:
 
 Although C is not the language to create games, it does a fantastic job at creating a terminal application for Linux. In its essence, this is what this program is. So, there are numerous areas for improvement in it. Here are a few ways you could help:  
 
-* Read through the code and do a little code review.  
-  * Comment on the readability of the code. Was it easy to read the code? Could you follow it?  
-  * Comment on the division of tasks among functions or the control flow in the program.  
-  * Tell me how the code can be improved.
-* Run the program on your machine and check for the robustness of the code. See if it behaves rationally for all kinds of input.  
-* It would be really awesome if you decided to contribute some code.  
+* Read through the code and do a quick code review.  
+  * Comment on the readability of the code. Was it easy to read the code? Could you follow the control flow in the program?  
+  * Comment on the division of tasks among functions or the control flow in the program. Can the structure of function be improved in any way?   
+  * Comment how the code, as a whole, can be improved. Suggest some better way of creating various source files and distribution of functions in them.  
+  * Also comment if you think that some piece of code is good in its current form. It really helps if someone acknowledges and appreciates the work.  
+* Run the program on your machine and check for the robustness of the code. See if it behaves rationally for all kinds of input. Try to break it and tell us what gave in.  
+* It would be __really__ awesome if you decided to contribute with some code.  
   * Try improving the documentation.  
-  * Try fixing a bug you have found.  
+  * Work on an open issue. Do keep everyone informed on your progress.  
+  * Open a new issue for a bug you have found and try fixing it.  
   * Or, thought of a new feature to add to the game? Tell everyone about it by opening an issue. Better yet, write the code to add it!
 * Or, help in any other way I might have missed.
 
-All contributions are greatly appreciated. Please contact me for any queries or more information about the code or the project.  
+All contributions are greatly appreciated. Please post a comment or contact me for any queries or more information about the  project.  
 Thank you!!  
