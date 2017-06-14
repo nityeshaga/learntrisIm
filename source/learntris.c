@@ -13,11 +13,11 @@ extern int active_column;
 extern tetramino selected;
 extern char matrix[22][10];
 
-void tetramino_on_matrix(void);
-char getnext(void);
-int print_matrix(char input);
-int collide(void);
-void print_menu(void);
+static void tetramino_on_matrix(void);
+static char getnext(void);
+static int print_matrix(char input);
+static int collide(void);
+static void print_menu(void);
 
 int s= 0; /*register to store score*/
 int n= 0; /*register to store no of cleared lines*/
@@ -297,7 +297,7 @@ int main(void)
 }
 
 /*getnext(): returns the next non-space character in the buffer*/
-char getnext(void)
+static char getnext(void)
 {
 	char c= ' ';
 	while(c==' ' || c=='\n')
@@ -306,7 +306,7 @@ char getnext(void)
 }
 
 /*tetramino_on_matrix(): fixes the tetramino permanently the on the matrix*/
-void tetramino_on_matrix(void)
+static void tetramino_on_matrix(void)
 {
 	int i, j;
 	for(i= 0; i<22; ++i) {
@@ -324,7 +324,7 @@ void tetramino_on_matrix(void)
 }
 
 /*print_matrix(): prints either the current state of the matrix(p) or the expected one(P)*/
-int print_matrix(char input)
+static int print_matrix(char input)
 {
 	switch(input) {
 	case 'p':
@@ -362,7 +362,7 @@ int print_matrix(char input)
 }
 
 /*collide(): returns the row index where the tetramino needs to begin in order to have the collision with maximum fitting;*/
-int collide(void)
+static int collide(void)
 {
 	int ar= active_row;
 	int ac= active_column;
@@ -405,6 +405,7 @@ int collide(void)
 }
 
 /*print_menu(): prints the menu*/
-void print_menu(void) {
+static void print_menu(void) 
+{
 	printf("Press start button to begin\n");
 }
